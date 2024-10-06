@@ -2,7 +2,7 @@ import { useLocation, useRoutes } from "react-router-dom";
 import { SuspenseElement as Suspense } from "../utils/index.jsx";
 import { lazy, useEffect } from "react";
 const Home = lazy(() => import("./home/Home.jsx"));
-const Category = lazy(() => import("./Category/Category.jsx"));
+const Category = lazy(() => import("./category/Category.jsx"));
 const Brand = lazy(() => import("./brand/Brand.jsx"))
 const ProductTypes = lazy(() => import("./productTypes/ProductTypes.jsx"))
 const Search = lazy(() => import("./search/Search.jsx"))
