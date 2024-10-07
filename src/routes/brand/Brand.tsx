@@ -8,7 +8,7 @@ import { Container } from "../../utils";
 import Footer from "../../components/footer/Footer";
 
 const Brand = () => {
-  const { id } = useParams();
+  const { id }: any = useParams();
   const [getBrand, { data }] = useGetBrandMutation();
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Brand = () => {
       </div>
 
        </Container>
-      <Products data={data}/>
+      <Products data={data} state={0}/>
       <Footer/>
     </>
   );

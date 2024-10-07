@@ -33,7 +33,7 @@ const Categorys = () => {
               </div>
               </Container>
               <Banner/>
-              <Products data={data} />
+              <Products data={data} state={0} />
               <Footer/>
        </>
   )

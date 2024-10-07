@@ -12,7 +12,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "../../components/ui/accordion";
 import { Container } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -20,17 +20,18 @@ import { like, removeLikes } from "../../redux/slice/Likes";
 import SwiperProducts from "../../components/swiperProduct/SwiperProducts";
 import { product } from "../../redux/slice/Cart";
 import { Button } from "antd";
+import { Response } from "../../types";
 
 const Details = () => {
   const dispatch = useDispatch()
   const { id } = useParams();
-  const [color, setColor] = useState()
+  const [color, setColor] = useState<string | undefined>("")
   const [checkButton, setCheckButton] = useState(true)
   const [getDetailsData, { data }] = useGetDetailsDataMutation();
-  const {liks} = useSelector((state) => state.likes)
-  const {currency} = useSelector((state) => state.currency)
+  const {liks} = useSelector((state: any) => state.likes)
+  const {currency} = useSelector((state: any) => state.currency)
   useEffect(() => {
-    getDetailsData(id);
+    getDetailsData(id as string);
   }, [id]);
 
   useEffect(() => {
@@ -43,15 +44,15 @@ const Details = () => {
   }, [color])
 
 
-  const handleLikes = (item) => {
-    if (liks && liks.some((likedItem) => likedItem.id === item.id)) {
+  const handleLikes = (item: Response) => {
+    if (liks && liks.some((likedItem: Response) => likedItem.id === item.id)) {
       dispatch(removeLikes(item));
     } else {
-      dispatch(like(item));
+      dispatch(like(item as Response));
     }
   };
 
-  const handleAddBag = (item) => {
+  const handleAddBag = (item: Response) => {
     dispatch(product({...item, color}))
   }
 
@@ -81,9 +82,14 @@ const Details = () => {
                   </AccordionItem>
                 </Accordion>
                 <strong className="text-[24px] mt-5 inline-block font-medium">
-                  Price:   {
-                       currency === "UZS" ? `${data.price * 12500} UZS` : currency === "USD" ? `$${data.price}` : currency === "EUR" ? `${"€"+data.price * 0.95.toFixed(0)}` : `$${data.price}`
-                      }
+                  Price:
+                      {currency === "UZS"
+                        ? `${data.price * 12500} UZS`
+                        : currency === "USD"
+                        ? `$${data.price}`
+                        : currency === "EUR"
+                        ? `€${(data.price * 0.95).toFixed(0)}`
+                        : `$${data.price}`}
                 </strong>
 
                 <div className="flex my-10 gap-10 items-center">
@@ -132,7 +138,7 @@ const Details = () => {
              
                       <button onClick={() => handleLikes(data)}>
                       {liks &&
-                        liks.find((likesItem) => likesItem.id === data.id) ? (
+                        liks.find((likesItem: any) => likesItem.id === data.id) ? (
                           <AiFillHeart size={60} color="red" />
                         ) : (
                           <AiOutlineHeart size={60} />

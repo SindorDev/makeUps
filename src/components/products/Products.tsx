@@ -6,12 +6,13 @@ import { Link } from "react-router-dom";
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { like, removeLikes } from "../../redux/slice/Likes";
-const Products = ({ data, state }) => {
+import { Response } from "../../types";
+const Products = ({ data, state }: { data: any; state: number }) => {
   const dispatch = useDispatch();
-  const { liks } = useSelector((state) => state.likes);
-  const { currency } = useSelector((state) => state.currency)
-  const handleLikes = (item) => {
-    if (liks && liks.some((likedItem) => likedItem.id === item.id)) {
+  const { liks } = useSelector((state: any) => state.likes);
+  const { currency } = useSelector((state: any) => state.currency);
+  const handleLikes = (item: Response) => {
+    if (liks && liks.some((likedItem: Response) => likedItem.id === item.id)) {
       dispatch(removeLikes(item));
     } else {
       dispatch(like(item));
@@ -23,10 +24,9 @@ const Products = ({ data, state }) => {
       <Container>
         <div className="grid grid-cols-4 gap-10">
           {data &&
-            data.slice(0, state).map((item) => {
+            data.slice(0, state).map((item: any) => {
               return (
                 <div
-
                   key={item.id}
                   className="rounded-lg overflow-hidden shadow-lg"
                 >
@@ -46,16 +46,24 @@ const Products = ({ data, state }) => {
                     <p className="capitalize tex-[16px] font-normal">
                       {item.brand}
                     </p>
-                    {parse(`<p className="min-h-[100px]">${item.description.slice(0, 100)+"..."}</p>`)}
+                    {parse(
+                      `<p className="min-h-[100px]">${
+                        item.description.slice(0, 100) + "..."
+                      }</p>`
+                    )}
                     <strong className=" inline-block mb-7 mt-10">
-                      {
-                       currency === "UZS" ? `${item.price * 12500} UZS` : currency === "USD" ? `$${item.price}` : currency === "EUR" ? `${"€"+item.price * 0.95.toFixed(0)}` : `$${item.price}`
-                      }
+                      {currency === "UZS"
+                        ? `${item.price * 12500} UZS`
+                        : currency === "USD"
+                        ? `$${item.price}`
+                        : currency === "EUR"
+                        ? `€${(item.price * 0.95).toFixed(0)}`
+                        : `$${item.price}`}
                     </strong>
                     <div className="flex items-center justify-end gap-5">
                       <button onClick={() => handleLikes(item)}>
                         {liks &&
-                        liks.find((likesItem) => likesItem.id === item.id) ? (
+                        liks.find((likesItem: Response) => likesItem.id === item.id) ? (
                           <AiFillHeart size={40} color="red" />
                         ) : (
                           <AiOutlineHeart size={40} />

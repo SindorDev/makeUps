@@ -16,24 +16,24 @@ const Header = () => {
   const navigate = useNavigate();
   const { getParam } = useSearchParamsHook();
   const { data } = useGetMakeQuery();
-  const {liks} = useSelector((state) => state.likes)
-  const { cartProduct } = useSelector((state) => state.cartProducts);
+  const {liks} = useSelector((state: any) => state.likes)
+  const { cartProduct } = useSelector((state: any) => state.cartProducts);
   const dispatch = useDispatch()
-  const currencys = useSelector((state) => state.currency)
-  const handleSearchSubmit = (value) => {
+  const currencys = useSelector((state: any) => state.currency)
+  const handleSearchSubmit = (value: string) => {
     navigate(`/search?q=${value.search}`);
   };
 
-  const loadData = async (searchText) => {
+  const loadData = async (searchText: string) => {
     try {
       setSearch(searchText);
     } catch (error) {
       console.log(error);
     }
   };
-  const searchData = data?.filter((item) => item.product_type.includes(search))
+  const searchData = data && data.filter((item: any) => item.product_type.includes(search))
   
-  const handleChange = (value) => {
+  const handleChange = (value: string) => {
     dispatch(currency(value))
   };
   
@@ -110,7 +110,7 @@ const Header = () => {
                           navigate(`/search?q=${search}`);
                         }
                       }}
-                      options={searchData && searchData.map((item) => ({
+                      options={searchData && searchData.map((item: any) => ({
                         label: (
                           <Link
                             className="block bg-transparent border-none"
@@ -121,8 +121,8 @@ const Header = () => {
                           </Link>
                         ),
                       }))}
-                      onSearch={(text) =>
-                        text ? loadData(text) : loadData({ payload: [] })
+                      onSearch={(text: string) =>
+                        text ? loadData(text) : loadData("")
                       }
                       placeholder="Search..."
                     />

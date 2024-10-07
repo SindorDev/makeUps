@@ -7,8 +7,7 @@ import Header from "../../components/header/Header";
 import Products from "../../components/products/Products";
 import useSearchParamsHook from "../../hooks/useQueryParamas";
 import { useGetMakeQuery, useGetSearchDataMutation } from "../../redux/api/makeup-api";
-import { Container } from "../../utils";
-
+    
 const Search = () => {
     const {data: productsData} = useGetMakeQuery();
     const {getParam} = useSearchParamsHook();
@@ -18,15 +17,15 @@ const Search = () => {
 
     useEffect(() => {
         if (param) {
-            getSearchData(param);
+            getSearchData(param as string);
         }
     }, [param]);
 
     useEffect(() => {
         if (isSuccess && searchData && searchData.length > 0) {
-            setData(searchData);
+            setData(searchData as any);
         } else {
-          const filterData = productsData?.filter((item) => item.name.includes(param));
+          const filterData = productsData?.filter((item: any) => item.name.includes(param));
           setData(filterData);
         }
     }, [searchData, isSuccess, productsData]);
@@ -37,8 +36,7 @@ const Search = () => {
             <Header />
             <Category />
             <Banner />
-            <Container></Container>
-            <Products data={data} />
+            <Products data={data} state={0} />
             <Footer />
         </>
     );

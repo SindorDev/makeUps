@@ -1,14 +1,14 @@
 import { useLocation, useRoutes } from "react-router-dom";
-import { SuspenseElement as Suspense } from "../utils/index.jsx";
+import { SuspenseElement as Suspense } from "../utils/index.js";
 import { lazy, useEffect } from "react";
-const Home = lazy(() => import("./home/Home.jsx"));
-const Category = lazy(() => import("./category/Category.jsx"));
-const Brand = lazy(() => import("./brand/Brand.jsx"))
-const ProductTypes = lazy(() => import("./productTypes/ProductTypes.jsx"))
-const Search = lazy(() => import("./search/Search.jsx"))
-const Details = lazy(() => import("./details/Details.jsx"))
-const Likes = lazy(() => import("./likes/Likes.jsx"))
-const CartProduct = lazy(() => import("./cartProduct/CartProduct.jsx"))
+const Home = lazy(() => import("./home/Home.js"));
+const Category = lazy(() => import("./category/Category.js"));
+const Brand = lazy(() => import("./brand/Brand.js"))
+const ProductTypes = lazy(() => import("./productTypes/ProductTypes.js"))
+const Search = lazy(() => import("./search/Search.js"))
+const Details = lazy(() => import("./details/Details.js"))
+const Likes = lazy(() => import("./likes/Likes.js"))
+const CartProduct = lazy(() => import("./cartProduct/CartProduct.js"))
 const RoutesController = () => {
 
   const { pathname } = useLocation()

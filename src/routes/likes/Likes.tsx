@@ -8,7 +8,7 @@ import Category from "../../components/category/Category"
 
 const Likes = () => {
 
-       const {liks} = useSelector((state) => state.likes)
+       const {liks} = useSelector((state: any) => state.likes)
 
   return (
        <>
@@ -20,7 +20,7 @@ const Likes = () => {
           Likes
         </span>
         <Banner/>
-        <Products data={liks}/>
+        <Products data={liks} state={0}/>
         </Container>
        <Footer/>
        </>

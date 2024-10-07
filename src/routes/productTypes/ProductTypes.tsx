@@ -12,7 +12,7 @@ const ProductTypes = () => {
        const [getProductType, {data}] = useGetProductTypeMutation()
 
        useEffect(() => {
-              getProductType(id)
+              getProductType(id as string)
        }, [id])
 
 
@@ -21,7 +21,7 @@ const ProductTypes = () => {
        <>
        <Header/>
        <Banner/>
-       <Products data={data}/>
+       <Products data={data} state={0}/>
        <Footer/>
        </>
   )
