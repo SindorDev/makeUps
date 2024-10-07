@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { api } from "../api/index"
 import { reducer as likesReducer } from "../slice/Likes";
+import { reducer as cartReducer } from "../slice/Cart";
 const store = configureStore({
      reducer: {
           likes: likesReducer,
+          cartProducts: cartReducer,
           [api.reducerPath]:  api.reducer
      },
      middleware: getDefaultMiddleware => getDefaultMiddleware().concat(api.middleware)

@@ -1,9 +1,9 @@
-import { AiFillHeart } from "react-icons/ai";
 /* eslint-disable react/prop-types */
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BsHandbag } from "react-icons/bs";
-import { AiOutlineHeart } from "react-icons/ai";
 import { Container } from "../../utils";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { like, removeLikes } from "../../redux/slice/Likes";
 const Products = ({ data, state }) => {
@@ -21,8 +21,6 @@ const Products = ({ data, state }) => {
   return (
     <section className="mb-10">
       <Container>
-
-
         <div className="grid grid-cols-4 gap-10">
           {data &&
             data.slice(0, state).map((item) => {
@@ -47,7 +45,7 @@ const Products = ({ data, state }) => {
                     <p className="capitalize tex-[16px] font-normal">
                       {item.brand}
                     </p>
-
+                    {parse(`<p className="min-h-[100px]">${item.description.slice(0, 100)+"..."}</p>`)}
                     <strong className=" inline-block mb-7 mt-10 min-h-[50px]">
                       ${item.price}
                     </strong>
