@@ -8,6 +8,7 @@ const ProductTypes = lazy(() => import("./productTypes/ProductTypes.jsx"))
 const Search = lazy(() => import("./search/Search.jsx"))
 const Details = lazy(() => import("./details/Details.jsx"))
 const Likes = lazy(() => import("./likes/Likes.jsx"))
+const CartProduct = lazy(() => import("./cartProduct/CartProduct.jsx"))
 const RoutesController = () => {
 
   const { pathname } = useLocation()
@@ -70,6 +71,14 @@ const RoutesController = () => {
       element: (
         <Suspense>
           <Likes/>
+        </Suspense>
+      )
+    },
+    {
+      path: "/checkout",
+      element: (
+        <Suspense>
+          <CartProduct/>
         </Suspense>
       )
     }

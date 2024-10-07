@@ -12,7 +12,7 @@ const productSlices = createSlice({
             const isproductsExist = state.cartProduct.some(products => products.id === action.payload.id);
             if (!isproductsExist) {
                 state.cartProduct.push(action.payload);
-                localStorage.setItem("products", JSON.stringify(state.cartProduct));
+                localStorage.setItem("cartProduct", JSON.stringify(state.cartProduct));
             }
         },
         removeproducts: (state, action) => {

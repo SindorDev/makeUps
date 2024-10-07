@@ -33,6 +33,26 @@
   width: 100% !important;
   align-items: center;
 }
+.swiper-button-prev, .swiper-button-next {
+  background-color: black !important;
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 50%;
+  color: white !important;
+}
+
+
+.swiper-wrapper {
+  position: static !important;
+}
+.swiper {
+  position: static !important;
+}
+
+.wrapper {
+  position: relative;
+}
+
 
 @layer base {
   :root {

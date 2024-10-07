@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router-dom";
+
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import Category from "../../components/category/Category"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetDetailsDataMutation } from "../../redux/api/makeup-api";
 import {
+
   Accordion,
   AccordionContent,
   AccordionItem,
@@ -15,15 +17,31 @@ import { Container } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { like, removeLikes } from "../../redux/slice/Likes";
+import SwiperProducts from "../../components/swiperProduct/SwiperProducts";
+import { product } from "../../redux/slice/Cart";
+import { Button } from "antd";
 
 const Details = () => {
   const dispatch = useDispatch()
   const { id } = useParams();
+  const [color, setColor] = useState()
+  const [checkButton, setCheckButton] = useState(true)
   const [getDetailsData, { data }] = useGetDetailsDataMutation();
   const {liks} = useSelector((state) => state.likes)
+  const {currency} = useSelector((state) => state.currency)
   useEffect(() => {
     getDetailsData(id);
   }, [id]);
+
+  useEffect(() => {
+    if(color == undefined) {
+      setCheckButton(true)
+    }
+    else {
+      setCheckButton(false)
+    }
+  }, [color])
+
 
   const handleLikes = (item) => {
     if (liks && liks.some((likedItem) => likedItem.id === item.id)) {
@@ -33,15 +51,20 @@ const Details = () => {
     }
   };
 
+  const handleAddBag = (item) => {
+    dispatch(product({...item, color}))
+  }
+
   return (
     <>
       <Header />
       <Category/>
       <Container>
+
         <div className="flex my-20 gap-20">
           {data && (
             <>
-              <div className="w-full h-full">
+              <div className="w-full h-[700px]">
                 <img src={data.api_featured_image} className="w-full h-full" alt={data.name} />
               </div>
               <div className="w-full">
@@ -58,7 +81,9 @@ const Details = () => {
                   </AccordionItem>
                 </Accordion>
                 <strong className="text-[24px] mt-5 inline-block font-medium">
-                  Price: {data.price_sign + data.price}
+                  Price:   {
+                       currency === "UZS" ? `${data.price * 12500} UZS` : currency === "USD" ? `$${data.price}` : currency === "EUR" ? `${"€"+data.price * 0.95.toFixed(0)}` : `$${data.price}`
+                      }
                 </strong>
 
                 <div className="flex my-10 gap-10 items-center">
@@ -82,6 +107,7 @@ const Details = () => {
                 </div>
                   
                 <Accordion type="single" className="w-full my-10" collapsible>
+
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
                       Change Of Product Colors
@@ -91,6 +117,7 @@ const Details = () => {
                       {data.product_colors.map((item, index) => (
                     <button
                       key={index}
+                      onClick={() => setColor(item.hex_value) }
                       className="rounded-full w-[40px] h-[40px]"
                       style={{ background: item.hex_value }}
                     ></button>
@@ -101,7 +128,7 @@ const Details = () => {
                 </Accordion>
                 
               <div className="flex gap-10 items-center">
-                <button className="bg-[#66FF96] w-full py-7 text-[30px]">Add To Bag</button>
+                <Button disabled={checkButton} type="primary" onClick={() => handleAddBag(data)} className="!bg-[#66FF96] text-black w-full !py-10 text-[30px]">Add To Bag</Button>
              
                       <button onClick={() => handleLikes(data)}>
                       {liks &&
@@ -118,6 +145,7 @@ const Details = () => {
           )}
         </div>
       </Container>
+      <SwiperProducts/>
       <Footer />
     </>
   );

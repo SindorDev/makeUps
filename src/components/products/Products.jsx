@@ -9,7 +9,7 @@ import { like, removeLikes } from "../../redux/slice/Likes";
 const Products = ({ data, state }) => {
   const dispatch = useDispatch();
   const { liks } = useSelector((state) => state.likes);
-
+  const { currency } = useSelector((state) => state.currency)
   const handleLikes = (item) => {
     if (liks && liks.some((likedItem) => likedItem.id === item.id)) {
       dispatch(removeLikes(item));
@@ -26,6 +26,7 @@ const Products = ({ data, state }) => {
             data.slice(0, state).map((item) => {
               return (
                 <div
+
                   key={item.id}
                   className="rounded-lg overflow-hidden shadow-lg"
                 >
@@ -39,15 +40,17 @@ const Products = ({ data, state }) => {
                     </div>
                   </Link>
                   <div className="p-2 h-full bg-gray-200">
-                    <h2 className="text-[20px] min-h-[50px] font-medium mt-5">
+                    <h2 className="text-[20px] min-h-[90px] mb-5 font-medium mt-5">
                       {item.name}
                     </h2>
                     <p className="capitalize tex-[16px] font-normal">
                       {item.brand}
                     </p>
                     {parse(`<p className="min-h-[100px]">${item.description.slice(0, 100)+"..."}</p>`)}
-                    <strong className=" inline-block mb-7 mt-10 min-h-[50px]">
-                      ${item.price}
+                    <strong className=" inline-block mb-7 mt-10">
+                      {
+                       currency === "UZS" ? `${item.price * 12500} UZS` : currency === "USD" ? `$${item.price}` : currency === "EUR" ? `${"€"+item.price * 0.95.toFixed(0)}` : `$${item.price}`
+                      }
                     </strong>
                     <div className="flex items-center justify-end gap-5">
                       <button onClick={() => handleLikes(item)}>
@@ -59,9 +62,9 @@ const Products = ({ data, state }) => {
                         )}
                       </button>
                       <div className="w-[40px] h-[40px] flex items-center justify-center bg-black rounded-full">
-                        <button>
+                        <Link to={`/details/${item.id}`}>
                           <BsHandbag size={20} color="white" />
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

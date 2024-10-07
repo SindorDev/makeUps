@@ -32,8 +32,14 @@ const MakeUps = api.injectEndpoints({
                             url: `products/${id}.json`,
                      }),
                      invalidatesTags: ["Parfumes"]
+              }),
+              getSearchData: build.mutation({
+                     query: (query) => ({
+                            url: `products.json?product_type=${query}`
+                     }),
+                     invalidatesTags: ["Parfumes"]
               })
        })
 })
 
-export const { useGetMakeQuery, useGetCategoryMutation, useGetBrandMutation, useGetProductTypeMutation, useGetDetailsDataMutation } = MakeUps
+export const { useGetMakeQuery, useGetCategoryMutation, useGetBrandMutation, useGetProductTypeMutation, useGetDetailsDataMutation, useGetSearchDataMutation } = MakeUps
