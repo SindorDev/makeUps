@@ -9,7 +9,7 @@ const currencySlices = createSlice({
     initialState,
     reducers: {
         currency: (state, action) => {
-              localStorage.setItem("currency", JSON.stringify(action.payload))
+              localStorage.setItem("currency", action.payload)
               state.currency = action.payload
         },
     }
