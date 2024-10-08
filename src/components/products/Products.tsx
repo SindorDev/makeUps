@@ -19,7 +19,6 @@ const Products = ({ data, state }: { data: any; state: number }) => {
     }
   };
 
-  console.log(data);
 
   return (
     <section className="mb-10">
