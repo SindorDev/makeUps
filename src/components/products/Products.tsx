@@ -19,6 +19,8 @@ const Products = ({ data, state }: { data: any; state: number }) => {
     }
   };
 
+  console.log(data);
+
   return (
     <section className="mb-10">
       <Container>
@@ -33,9 +35,12 @@ const Products = ({ data, state }: { data: any; state: number }) => {
                   <Link to={`/details/${item.id}`}>
                     <div className="w-full  h-[300px]">
                       <img
-                        src={item.api_featured_image}
+                        src={item.image_link || "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"}
                         className="w-full h-full"
                         alt={item.name}
+                        onError={(e) => {
+                          e.currentTarget.src = "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
+                        }}
                       />
                     </div>
                   </Link>

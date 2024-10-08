@@ -20,7 +20,7 @@ const Likes = () => {
           Likes
         </span>
         <Banner/>
-        <Products data={liks} state={0}/>
+        <Products data={liks} state={liks.length}/>
         </Container>
        <Footer/>
        </>

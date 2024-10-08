@@ -23,6 +23,9 @@ const Categorys = () => {
                      }
               }, [id])
 
+
+              console.log(data);
+
   return (
        <>
               <Header/>
@@ -33,7 +36,7 @@ const Categorys = () => {
               </div>
               </Container>
               <Banner/>
-              <Products data={data} state={0} />
+              <Products data={data} state={data?.length} />
               <Footer/>
        </>
   )

@@ -36,7 +36,7 @@ const Search = () => {
             <Header />
             <Category />
             <Banner />
-            <Products data={data} state={0} />
+            <Products data={data} state={data.length} />
             <Footer />
         </>
     );

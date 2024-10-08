@@ -28,7 +28,7 @@ const Brand = () => {
       </div>
 
        </Container>
-      <Products data={data} state={0}/>
+      <Products data={data} state={data?.length}/>
       <Footer/>
     </>
   );
