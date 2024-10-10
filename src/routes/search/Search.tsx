@@ -22,10 +22,10 @@ const Search = () => {
     }, [param]);
 
     useEffect(() => {
-        if (isSuccess && searchData && searchData.length > 0) {
+        if (isSuccess && searchData && searchData?.length > 0) {
             setData(searchData as any);
         } else {
-          const filterData = productsData?.filter((item: any) => item.name.includes(param));
+          const filterData = productsData?.filter((item: any) => item?.name.includes(param));
           setData(filterData);
         }
     }, [searchData, isSuccess, productsData]);
@@ -36,7 +36,7 @@ const Search = () => {
             <Header />
             <Category />
             <Banner />
-            <Products data={data} state={data.length} />
+            <Products data={data} state={data?.length} />
             <Footer />
         </>
     );
